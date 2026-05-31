@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Lucien Le Goc</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #16213e;
+      --bg-alt:   #1a2347;
+      --bg-card:  #1f2a54;
+      --bg-footer:#0f1635;
+      --accent:   #ff4d5a;
+      --accent-h: #ff6b77;
+      --white:    #ffffff;
+      --gray:     #a0a8c0;
+      --gray-dim: #6b7499;
+      --border:   rgba(255,77,90,0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--gray);
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.5rem, 6vw, 5rem);
+      height: 62px;
+    }
+    .nav-logo {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: var(--white);
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--gray);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 3px;
+      transition: color 0.2s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 100%;
+      height: 1.5px;
+      background: var(--accent);
+      transition: right 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { right: 0; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: clamp(4rem, 10vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+      min-height: 52vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,77,90,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      color: var(--white);
+      text-transform: uppercase;
+      line-height: 1.05;
+      margin-bottom: 0.55rem;
+    }
+    .hero-name {
+      font-size: clamp(1.15rem, 3vw, 1.8rem);
+      font-weight: 600;
+      font-style: italic;
+      color: var(--accent);
+      margin-bottom: 0.9rem;
+      letter-spacing: 0.04em;
+    }
+    .hero-desc {
+      font-size: 0.88rem;
+      color: var(--gray-dim);
+      max-width: 400px;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    /* ── BOUTON ── */
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.72rem 1.8rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn:hover { background: var(--accent-h); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    /* ── SEP ── */
+    .sep { border: none; border-top: 1px solid rgba(255,77,90,0.13); margin: 0; }
+
+    /* ── SECTION ── */
+    section {
+      padding: clamp(3rem, 7vw, 5rem) clamp(1.5rem, 6vw, 5rem);
+    }
+    section.alt { background: var(--bg-alt); }
+
+    .section-label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    section h2 {
+      font-size: clamp(1.5rem, 4vw, 2.3rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+    .title-bar {
+      width: 40px; height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 1.8rem;
+    }
+    section p {
+      max-width: 680px;
+      font-size: 0.92rem;
+      color: var(--gray);
+      line-height: 1.85;
+    }
+
+    /* ── GRILLE COMPÉTENCES ── */
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .comp-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,77,90,0.22);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .comp-card.open,
+    .comp-card:hover { border-color: var(--accent); }
+
+    .comp-card .comp-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.15rem;
+      cursor: pointer;
+      color: var(--white);
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .comp-card:hover .comp-header { color: var(--accent); }
+
+    .comp-icon { font-size: 1.05rem; color: var(--accent); flex-shrink: 0; width: 20px; text-align: center; }
+    .comp-title { flex: 1; }
+    .comp-arrow { font-size: 0.68rem; color: var(--gray-dim); transition: transform 0.3s ease; }
+    .comp-card.open .comp-arrow { transform: rotate(180deg); }
+
+    .comp-body {
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      font-size: 0.82rem;
+      color: var(--gray);
+      line-height: 1.72;
+      border-top: 0px solid rgba(255,77,90,0.1);
+      transition: max-height 0.35s ease, padding 0.25s ease, border-top-width 0.25s;
+    }
+    .comp-card.open .comp-body {
+      max-height: 300px;
+      padding: 0.6rem 1.15rem 1rem;
+      border-top-width: 1px;
+    }
+    .comp-body-inner { padding: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg-footer);
+      border-top: 1px solid rgba(255,77,90,0.28);
+      padding: clamp(3rem, 7vw, 5rem) clamp(1.5rem, 6vw, 5rem) 2rem;
+    }
+    .footer-contacts { display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 2rem; }
+    .footer-contacts a,
+    .footer-contacts span {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.9rem;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-contacts a:hover { color: var(--accent); }
+    .fi { font-size: 1rem; width: 22px; text-align: center; }
+    .footer-copy {
+      margin-top: 2.5rem;
+      font-size: 0.7rem;
+      color: var(--gray-dim);
+      letter-spacing: 0.06em;
+      opacity: 0.45;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .comp-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      nav { flex-direction: column; height: auto; padding: 0.9rem 1.2rem; gap: 0.5rem; }
+      .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+      .comp-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVIGATION ══ -->
+  <nav>
+    <a href="#" class="nav-logo">Portfolio</a>
+    <ul class="nav-links">
+      <li><a href="#apropos">À propos de moi</a></li>
+      <li><a href="#diplomes">Mes diplômes</a></li>
+      <li><a href="#competences">Compétences</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <p class="hero-eyebrow">Bienvenue sur mon portfolio</p>
+    <h1>Portfolio</h1>
+    <p class="hero-name">Lucien Le Goc</p>
+    <div>
+      <a href="#apropos" class="btn">Découvrir mon parcours →</a>
+    </div>
+  </section>
+
+  <hr class="sep" />
+
+  <!-- ══ À PROPOS ══ -->
+  <section id="apropos">
+    <p class="section-label">Présentation</p>
+    <h2>À Propos de Moi</h2>
+    <div class="title-bar"></div>
+    <p>
+    Je m'appelle Lucien Le Goc et je suis un élève de première année en BUT Informatique dans l'IUT de Lannion. L'année d'avant j'était élève en CPGE TSI au lycée Chaptal a saint-brieuc et en 2024 j'ai eu mon bac STI2D au Lycée Yves Thépot a Quimper. Je suis passioné par l'informatique et j'aime apprendre de nouveau language de programmation et j'ai également un bon niveau d'anglais.
+    </p>
+  </section>
+
+  <hr class="sep" />
+
+  <!-- ══ DIPLÔMES ══ -->
+  <section id="diplomes" class="alt">
+    <p class="section-label">Formation</p>
+    <h2>Mes Diplômes</h2>
+    <div class="title-bar"></div>
+  
+    <p>
+      <strong style="color:#fff">2025-2028</strong> — BUT Informatique, IUT de Lannion<br />
+      <strong style="color:#fff">2024</strong> — Baccalauréat STI2D, Lycée Yves Thépot, Quimper <br /><br />
+      
+    </p>
+  </section>
+
+  <hr class="sep" />
+
+  <!-- ══ COMPÉTENCES ══ -->
+  <section id="competences">
+    <p class="section-label">Savoir-faire</p>
+    <h2>Compétences</h2>
+    <div class="title-bar"></div>
+    <div class="comp-grid">
+
+
+      <div class="comp-card">
+        <div class="comp-header">
+          <span class="comp-icon">⚙</span>
+          <span class="comp-title">Compétence 1 — Réaliser</span>
+          <span class="comp-arrow">▾</span>
+        </div>
+        <div class="comp-body">
+          <p>Projet: Réalisation du jeu Sokoban en C</p> Sokoban est un jeu de casse tête ou l'on doit mettre des caisses sur des points. Pour Réaliser ce jeu j'ai du gerer la gestion de touche, la gestion de fichier avec le lancement de fichier, la modification de fichier et la sauvegarde de fichier. Grace a se projet j'ai développer plusieurs compétences très utile en C.
+
+        </div>
+      </div>
+
+
+      <div class="comp-card">
+        <div class="comp-header">
+          <span class="comp-icon">✦</span>
+          <span class="comp-title">Compétence 2 — Optimiser</span>
+          <span class="comp-arrow">▾</span>
+        </div>
+        <div class="comp-body">
+          <p>Projet: Solution du problème du cavalier et de picross</p> Le problème du cavalier et un problème d'echec, qui se demande si l'on place un cavalier quelque part sur un écheciec, peut il parcourir toutes les cases de cette écheciec. Pour ce faire j'ai du coder un programme python et utiliser des mathematique pour chercher un chemin possible, avec ce programme nous pouvons trouver si il y a une solution en fonction de la case de depart du cavalier et de la taille de l'echeciec. Pour la resolution du picross, c'était la même logique. Grace a se projet j'ai appris a lié maths et programmation en python.
+        </div>
+      </div>
+
+      <!-- ✏️ Compétence 3 -->
+      <div class="comp-card">
+        <div class="comp-header">
+          <span class="comp-icon">◈</span>
+          <span class="comp-title">Compétence 3 — Administrer</span>
+          <span class="comp-arrow">▾</span>
+        </div>
+        <div class="comp-body">
+
+        </div>
+      </div>
+
+      <!-- ✏️ Compétence 4 -->
+      <div class="comp-card">
+        <div class="comp-header">
+          <span class="comp-icon">◎</span>
+          <span class="comp-title">Compétence 4 — Gérer</span>
+          <span class="comp-arrow">▾</span>
+        </div>
+        <div class="comp-body">
+
+        </div>
+      </div>
+
+      <!-- ✏️ Compétence 5 -->
+      <div class="comp-card">
+        <div class="comp-header">
+          <span class="comp-icon">⬡</span>
+          <span class="comp-title">Compétence 5 — Conduire</span>
+          <span class="comp-arrow">▾</span>
+        </div>
+        <div class="comp-body">
+        <p>Projet: Réalisation d'un site internet</p> Dans ce projet de groupe, j'ai du réaliser un site vitrine en HTML et CSS, ce site était un site touristique sur la nouvelle-zélande. Pour ce faire nous avons d'abord du créer une maquette sur le logiciel FIGMA, puis nous avons fait le prototype de cette maquette, et enfin nous avons du créer le site. Ce Projet m'a appris a créer un site internet en équipe, et également a faire des maquette et prototype avant de commencer un site pour le réaliser plus facilement.
+        </div>
+      </div>
+
+      <!-- ✏️ Compétence 6 -->
+      <div class="comp-card">
+        <div class="comp-header">
+          <span class="comp-icon">❋</span>
+          <span class="comp-title">Compétence 6 — Collaborer</span>
+          <span class="comp-arrow">▾</span>
+        </div>
+        <div class="comp-body">
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ FOOTER / CONTACT ══ -->
+  <footer id="contact">
+    <p class="section-label">Contact</p>
+    <h2 style="font-size:clamp(1.5rem,4vw,2.2rem);font-weight:700;color:#fff;margin-bottom:0.55rem">Me Contacter</h2>
+    <div class="title-bar"></div>
+
+    <div class="footer-contacts">
+      <span>
+        <span class="fi">📞</span>
+        06 23 29 87 52
+      </span>
+      <a href="mailto:legocantolinlucien@gmail.com">
+        <span class="fi">✉</span>
+        legocantolinlucien@gmail.com
+      </a>
+      <!-- ✏️ Remplacez # par votre URL LinkedIn -->
+      <a href="#" target="_blank" rel="noopener">
+        <span class="fi">🔗</span>
+        LinkedIn — Lucien Le Goc
+      </a>
+    </div>
+
+    <!-- ✏️ Placez votre fichier cv.pdf dans le même dossier que index.html -->
+    <a class="btn" href="cv.pdf" download="CV_Lucien_LeGoc.pdf">
+      📄 &nbsp;Télécharger mon CV →
+    </a>
+
+    <p class="footer-copy">© 2025 Lucien Le Goc — Tous droits réservés</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.comp-card .comp-header').forEach(function(header) {
+      header.addEventListener('click', function() {
+        var card = header.parentElement;
+        card.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>
